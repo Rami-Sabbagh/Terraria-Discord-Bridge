@@ -170,4 +170,4 @@ client:on('messageCreate', function(message)
     end
 end)
 
-client:run('Bot '..config.token)
+client:run("Bot "..config.token)
