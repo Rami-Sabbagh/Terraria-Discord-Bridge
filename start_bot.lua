@@ -20,7 +20,7 @@ do
 end
 
 --Prepare the server startup command
-local serverCommand = string.format("bash -c \"%s -config %s > %s\"",
+local serverCommand = string.format("%s -config %s > %s",
     config.serverExecutable, config.serverConfig, config.serverOutput
 )
 
