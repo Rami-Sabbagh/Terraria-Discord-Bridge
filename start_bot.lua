@@ -30,8 +30,8 @@ local serverCommand = string.format("%s -config %s > %s",
     config.serverExecutable, config.serverConfig, config.serverOutput
 )
 
-local input = assert(io.popen(serverCommand, "w"))
-local output = assert(io.open(config.serverOutput, "r"))
+local input = assert(io.popen(serverCommand, "w")) --Writing to this file is like sending input to the server.
+local output = assert(io.open(config.serverOutput, "r")) --Reading from this file is reading the output of the server.
 
 local timer = require("timer")
 local http = require("coro-http")
@@ -41,6 +41,7 @@ local client = discordia.Client()
 local serverReady = false
 local playersCount = 0
 
+--Update the bot's status with the players count
 local function updateStatus()
     client:setGame({
         name = string.format("%d players online", playersCount),
@@ -48,10 +49,11 @@ local function updateStatus()
     })
 end
 
+--Send a message using the configured webhook
 local function sendMessage(content, name)
     local avatarURL = nil
 
-    if config.players[name] then
+    if config.players[name] then --The players snowflakes are converted to user objects in the ready event
         avatarURL = config.players[name]:getAvatarURL()
         name = config.players[name].name
     end
@@ -70,6 +72,7 @@ local function sendMessage(content, name)
     }, payload)
 end
 
+--Check the server log for any new players messages (including join and leave messages).
 local function checkServerLog()
     if serverReady then
         for line in output:lines() do
@@ -129,15 +132,23 @@ client:on('messageCreate', function(message)
 
             input:flush()
         end
-    elseif message.channel.type == 1 then --private
+    elseif message.channel.type == 1 then --Direct (private) messages
+        --Check if the messages are from the a server owner.
         local owner = false
         for _, id in pairs(config.owners) do
             if id == message.author.id then owner = true break end
         end
 
+        --If not from an owner, ignore them.
         if not owner then return end
 
-        if message.content == "exit" then
+        --If the server is not in a ready state, refuse to execute the commands.
+        if not serverReady then
+            message.channel:send("The server is not ready ⚠")
+            return
+        end
+
+        if message.content == "exit" then --Exit the server properly
             serverReady = false
 
             client:setGame("exitting...")
@@ -152,14 +163,12 @@ client:on('messageCreate', function(message)
             client:setGame("goodbye")
             client:stop()
             os.exit(0)
-        elseif message.content == "save" then
+        elseif message.content == "save" then --Save the world
             serverReady = false
             client:setGame("saving world...")
 
             input:write("say Saving world...\n")
             input:flush()
-
-            message.channel:send("Saving world ⚙")
 
             input:write("save\n")
             input:flush()
