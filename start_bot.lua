@@ -96,7 +96,7 @@ local function checkServerLog()
 end
 
 --Set the server log monitor every 1 second
-timer.setInterval(1, checkServerLog)
+timer.setInterval(1, function() coroutine.wrap(checkServerLog)() end)
 
 client:on('ready', function()
     for gameName, user in pairs(config.players) do
