@@ -1,0 +1,6 @@
+#Discordia files
+discordia.log
+gateway.json
+
+#Bot configuration
+configuration.json
