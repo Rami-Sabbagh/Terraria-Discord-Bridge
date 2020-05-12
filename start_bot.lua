@@ -1,3 +1,4 @@
+#!/usr/local/bin/luvit
 --- Terraria chat bridge to/from discord by Rami Sabbagh (RamiLego4Game)
 -- A discord bot written in Lua to bridge chat between a Terraria server and a discord channel.
 
