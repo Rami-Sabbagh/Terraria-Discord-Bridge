@@ -4,7 +4,7 @@
 
 print("--------------------------------------------------------")
 print("Terraria-Discord-Bridge by Rami Sabbagh (@ramilego4game)")
-print("Version - 1.0.1")
+print("Version - 1.1.0")
 print("--------------------------------------------------------")
 print("")
 
@@ -116,6 +116,8 @@ client:on('ready', function()
     print("Terraria's bridge ready!")
 
     serverReady = true
+
+    pcall(sendMessage, "_The server is now online._", "Server")
 end)
 
 client:on('messageCreate', function(message)
@@ -160,6 +162,7 @@ client:on('messageCreate', function(message)
             output:close()
 
             message.channel:send("Exited server successfully ✅")
+            pcall(sendMessage("_The server has shutdown_", "Server"))
 
             client:setGame("goodbye")
             client:stop()
@@ -167,6 +170,8 @@ client:on('messageCreate', function(message)
         elseif message.content == "save" then --Save the world
             serverReady = false
             client:setGame("saving world...")
+
+            pcall(sendMessage, "_Saving the world..._", "Server"))
 
             input:write("say Saving world...\n")
             input:flush()
@@ -182,6 +187,7 @@ client:on('messageCreate', function(message)
 
             updateStatus()
             message.channel:send("Saved successfully ✅")
+            pcall(sendMessage, "_Saved successfully._", "Server"))
         end
     end
 end)
