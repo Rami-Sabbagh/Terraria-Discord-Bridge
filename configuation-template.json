@@ -1,0 +1,18 @@
+{
+    "token": "the bot authorization token here",
+    "players": {
+        "In-game character name": "Discord user id/snowflake"
+    },
+
+    "owners": [
+        "Server owners",
+        "id/snowflake"
+    ],
+
+    "bridgeChannel": "The bridge channel id/snowflake",
+    "bridgeWebhook": "webhook URL here",
+
+    "serverExecutable": "/mnt/e/Workspace/TerrariaServer/Server/TerrariaServer.bin.x86_64",
+    "serverConfig": "/mnt/e/Workspace/TerrariaServer/serverconfig.txt",
+    "serverOutput": "/mnt/e/Workspace/TerrariaServer/output.txt"
+}
