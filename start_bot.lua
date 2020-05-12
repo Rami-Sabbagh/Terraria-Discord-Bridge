@@ -171,7 +171,7 @@ client:on('messageCreate', function(message)
             serverReady = false
             client:setGame("saving world...")
 
-            pcall(sendMessage, "_Saving the world..._", "Server"))
+            pcall(sendMessage, "_Saving the world..._", "Server")
 
             input:write("say Saving world...\n")
             input:flush()
@@ -187,7 +187,7 @@ client:on('messageCreate', function(message)
 
             updateStatus()
             message.channel:send("Saved successfully ✅")
-            pcall(sendMessage, "_Saved successfully._", "Server"))
+            pcall(sendMessage, "_Saved successfully._", "Server")
         end
     end
 end)
