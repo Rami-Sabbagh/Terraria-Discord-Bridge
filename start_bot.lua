@@ -89,11 +89,11 @@ local function checkServerLog()
             elseif line:match("has joined.$") then
                 playersCount = playersCount + 1
                 updateStatus()
-                pcall(sendMessage, "_joined the game._", line:gsub(1,-12))
+                pcall(sendMessage, "_joined the game._", line:sub(1,-12))
             elseif line:match("has left.$") then
                 playersCount = playersCount - 1
                 updateStatus()
-                pcall(sendMessage, "_left the game._", line:gsub(1,-10))
+                pcall(sendMessage, "_left the game._", line:sub(1,-10))
             end
         end
     end
