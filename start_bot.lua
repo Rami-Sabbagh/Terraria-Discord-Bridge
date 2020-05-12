@@ -1,5 +1,11 @@
 --- Terraria chat bridge to/from discord by Rami Sabbagh (RamiLego4Game)
--- V1.0.0
+-- A discord bot written in Lua to bridge chat between a Terraria server and a discord channel.
+
+print("--------------------------------------------------------")
+print("Terraria-Discord-Bridge by Rami Sabbagh (@ramilego4game)")
+print("Version - 1.0.1")
+print("--------------------------------------------------------")
+print("")
 
 local json = require("json")
 
