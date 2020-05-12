@@ -27,8 +27,8 @@ local serverCommand = string.format("%s -config %s > %s",
 local input = assert(io.popen(serverCommand, "w"))
 local output = assert(io.open(config.serverOutput, "r"))
 
-local http = require("coro-http")
 local timer = require("timer")
+local http = require("coro-http")
 local discordia = require('discordia')
 local client = discordia.Client()
 
