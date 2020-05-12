@@ -64,34 +64,33 @@ local function sendMessage(content, name)
     }, payload)
 end
 
-local function runTerrariaLoop()
-    while true do
-        if serverReady then
-            for line in output:lines() do
-                line = line:gsub("[\r\n]",""):gsub("^ :", "")
-                if line:match("^<.->") then
-                    local sender = line:match("^<.->"):sub(2,-2)
-                    local content = line:gsub("^<.->%s+", "")
+local function checkServerLog()
+    if serverReady then
+        for line in output:lines() do
+            line = line:gsub("[\r\n]",""):gsub("^ :", "")
+            if line:match("^<.->") then
+                local sender = line:match("^<.->"):sub(2,-2)
+                local content = line:gsub("^<.->%s+", "")
 
-                    if #sender > 0 and #content > 0 and sender ~= "Server" then
-                        print("Terraria -> Discord", sender, ":", content)
-                        sendMessage(content, sender)
-                    end
-                elseif line:match("^%S+ has joined") then
-                    playersCount = playersCount + 1
-                    updateStatus()
-                    pcall(sendMessage, "_joined the game._", line:match("^%S+"))
-                elseif line:match("^%S+ has left") then
-                    playersCount = playersCount - 1
-                    updateStatus()
-                    pcall(sendMessage, "_left the game._", line:match("^%S+"))
+                if #sender > 0 and #content > 0 and sender ~= "Server" then
+                    print("Terraria -> Discord", sender, ":", content)
+                    sendMessage(content, sender)
                 end
+            elseif line:match("^%S+ has joined") then
+                playersCount = playersCount + 1
+                updateStatus()
+                pcall(sendMessage, "_joined the game._", line:match("^%S+"))
+            elseif line:match("^%S+ has left") then
+                playersCount = playersCount - 1
+                updateStatus()
+                pcall(sendMessage, "_left the game._", line:match("^%S+"))
             end
         end
-
-        timer.sleep(1)
     end
 end
+
+--Set the server log monitor every 1 second
+timer.setInterval(1, checkServerLog)
 
 client:on('ready', function()
     for gameName, user in pairs(config.players) do
@@ -107,7 +106,6 @@ client:on('ready', function()
     print("Terraria's bridge ready!")
 
     serverReady = true
-    runTerrariaLoop()
 end)
 
 client:on('messageCreate', function(message)
