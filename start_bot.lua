@@ -86,14 +86,14 @@ local function checkServerLog()
                     print("Terraria -> Discord", sender, ":", content)
                     sendMessage(content, sender)
                 end
-            elseif line:match("has joined$") then
+            elseif line:match("has joined.$") then
                 playersCount = playersCount + 1
                 updateStatus()
-                pcall(sendMessage, "_joined the game._", line:gsub(1,-11))
-            elseif line:match("has left$") then
+                pcall(sendMessage, "_joined the game._", line:gsub(1,-12))
+            elseif line:match("has left.$") then
                 playersCount = playersCount - 1
                 updateStatus()
-                pcall(sendMessage, "_left the game._", line:gsub(1,-9))
+                pcall(sendMessage, "_left the game._", line:gsub(1,-10))
             end
         end
     end
