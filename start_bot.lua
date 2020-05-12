@@ -13,9 +13,11 @@ do
     config = json.decode(data)
 end
 
---Delete existing output file
-os.remove(config.serverOutput)
-os.execute("touch "..config.serverOutput)
+--Clear the output file
+do
+    local file = assert(io.open(config.serverOutput, "w"))
+    file:close()
+end
 
 --Prepare the server startup command
 local serverCommand = string.format("bash -c \"%s -config %s > %s\"",
