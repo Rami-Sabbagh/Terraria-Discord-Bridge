@@ -4,7 +4,7 @@
 
 print("--------------------------------------------------------")
 print("Terraria-Discord-Bridge by Rami Sabbagh (@ramilego4game)")
-print("Version - 1.1.0")
+print("Version - 1.1.1")
 print("--------------------------------------------------------")
 print("")
 
@@ -89,11 +89,11 @@ local function checkServerLog()
             elseif line:match("has joined.$") then
                 playersCount = playersCount + 1
                 updateStatus()
-                pcall(sendMessage, "_joined the game._", line:sub(1,-12))
+                pcall(sendMessage, "_joined the game._", line:sub(1,-13))
             elseif line:match("has left.$") then
                 playersCount = playersCount - 1
                 updateStatus()
-                pcall(sendMessage, "_left the game._", line:sub(1,-10))
+                pcall(sendMessage, "_left the game._", line:sub(1,-11))
             end
         end
     end
