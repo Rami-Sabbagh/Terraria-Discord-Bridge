@@ -4,7 +4,7 @@
 
 print("--------------------------------------------------------")
 print("Terraria-Discord-Bridge by Rami Sabbagh (@ramilego4game)")
-print("Version - 1.1.1")
+print("Version - 1.2.0")
 print("--------------------------------------------------------")
 print("")
 
