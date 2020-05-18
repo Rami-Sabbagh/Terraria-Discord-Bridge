@@ -4,7 +4,7 @@
 
 print("--------------------------------------------------------")
 print("Terraria-Discord-Bridge by Rami Sabbagh (@ramilego4game)")
-print("Version - 1.2.0")
+print("Version - 1.3.0")
 print("--------------------------------------------------------")
 print("")
 
@@ -190,6 +190,7 @@ client:on('messageCreate', function(message)
             pcall(sendMessage, "_Saved successfully._", "Server")
         elseif message.content:sub(1,4) == "kick" then --Kick a player
             input:write(message.content)
+            input:write("\n")
             input:flush()
 
             message.channel:send("Kicked successfully ✅")
@@ -198,12 +199,20 @@ client:on('messageCreate', function(message)
             pcall(sendMessage("_"..message.content:sub(6,-1).." has been kicked._", "Server"))
         elseif message.content:sub(1,3) == "ban" then --Ban a player
             input:write(message.content)
+            input:write("\n")
             input:flush()
 
             message.channel:send("Banned successfully ✅")
             input:write(message.content:sub(5,-1).." has been banned.")
             input:flush()
             pcall(sendMessage("_"..message.content:sub(5,-1).." has been banned._", "Server"))
+        elseif message.content:sub(1,3) == "say" then --Say a message as the server
+            input:write(message.content)
+            input:write("\n")
+            input:flush()
+
+            message.channel:send("Sent successfully ✅")
+            pcall(sendMessage(message.content:sub(5,-1), "Server"))
         end
     end
 end)
